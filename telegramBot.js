@@ -5,7 +5,7 @@ const bot = new Bot(process.env.API_KEY_BOT);
 const doc = new GoogleSpreadsheet(process.env.GOOGLE_SERVICE_TABLE_ID,
     {apiKey: process.env.GOOGLE_SERVICE_TABLE_KEY});
 
-const dictionary = {};
+const dictionary = [];
 
 async function loadTable() {
     await doc.loadInfo();
