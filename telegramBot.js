@@ -15,9 +15,9 @@ async function loadTable() {
 loadTable().then(res => {
     res.reduce((obj, row) => {
         dictionary.push({
-            key: row.key,
-            request: row.request,
-            response: row.response
+            key: row.get('key'),
+            request: row.get('request'),
+            response: row.get('response')
         })
     });
     console.log(dictionary);
