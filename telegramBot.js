@@ -6,7 +6,7 @@ const doc = new GoogleSpreadsheet(process.env.GOOGLE_SERVICE_TABLE_ID,
     {apiKey: process.env.GOOGLE_SERVICE_TABLE_KEY});
 
 const dictionary = [];
-const steps = [false, false];
+let steps = [false, false];
 
 async function loadTable() {
     await doc.loadInfo();
@@ -33,6 +33,7 @@ bot.on("message", async msg => {
         if (steps[i - 1] === false) {
             steps[i - 1] = true;
             await msg.reply(dictionary[i].response);
+            break;
         }
     }
 })
