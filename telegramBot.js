@@ -7,7 +7,10 @@ const doc = new GoogleSpreadsheet(process.env.GOOGLE_SERVICE_TABLE_ID,
 
 async function loadTable() {
     await doc.loadInfo();
+    return doc.title;
 }
+
+loadTable().then(res => console.log(res));
 
 bot.command('start', async msg => {
     await msg.reply("Hey there, what's up?");
