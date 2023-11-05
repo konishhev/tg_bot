@@ -16,7 +16,6 @@ loadTable().then(res => {
     res.reduce((obj, row) => {
         dictionary.push({
             key: row.get('key'),
-            request: row.get('request'),
             response: row.get('response')
         })
     });
@@ -24,7 +23,8 @@ loadTable().then(res => {
 });
 
 bot.command('start', async msg => {
-    await msg.reply("Hey there, what's up?");
+    const response = dictionary[0];
+    if (response.key == 'start') await msg.reply(response.response);
 });
 
 bot.start();
