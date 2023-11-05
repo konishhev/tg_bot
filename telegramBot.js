@@ -1,4 +1,4 @@
-const {Bot} = require('grammy');
+const {Bot, Keyboard} = require('grammy');
 const {GoogleSpreadsheet} = require('google-spreadsheet');
 
 const bot = new Bot(process.env.API_KEY_BOT);
@@ -29,6 +29,7 @@ bot.command('start', async msg => {
 });
 
 bot.on("message", async msg => {
+    /*
     for (let i = 1; i < steps.length + 1; i++) {
         if (steps[i - 1] === false) {
             steps[i - 1] = true;
@@ -36,6 +37,23 @@ bot.on("message", async msg => {
             break;
         }
     }
+     */
+
+    if (steps[0] === false) {
+        steps[0] = true;
+        await msg.reply(dictionary[1].response);
+    }
+    else if (steps[1] === false) {
+        if (msg.message.text.length === 11 & msg.message.text.startsWith('89')) {
+            steps[1] = true;
+            await msg.reply(dictionary[2].response, {
+                reply_markup: new Keyboard().text("Начнем!")
+            })
+        }
+        else await msg.reply("Неверный формат телефона, попробуй еще");
+    }
 })
+
+bot.on("message")
 
 bot.start();
