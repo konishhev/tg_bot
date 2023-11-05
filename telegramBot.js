@@ -7,7 +7,7 @@ const doc = new GoogleSpreadsheet(process.env.GOOGLE_SERVICE_TABLE_ID,
 
 async function loadTable() {
     await doc.loadInfo();
-    return doc.title;
+    return doc.sheetsByIndex[0].getRows();
 }
 
 loadTable().then(res => console.log(res));
