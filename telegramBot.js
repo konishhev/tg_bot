@@ -1,6 +1,8 @@
 const {Bot, Keyboard} = require('grammy');
 const {GoogleSpreadsheet} = require('google-spreadsheet');
 
+require('dotenv').config();
+
 const bot = new Bot(process.env.API_KEY_BOT);
 const doc = new GoogleSpreadsheet(process.env.GOOGLE_SERVICE_TABLE_ID,
     {apiKey: process.env.GOOGLE_SERVICE_TABLE_KEY});
@@ -45,7 +47,7 @@ bot.on("message", async msg => {
     }
     else if (steps[1] === false) {
         if (msg.message.text.length === 11 & msg.message.text.startsWith('89')) {
-            steps[1] = true;
+            steps[1] = true;npm
             await msg.reply(dictionary[2].response, {
                 reply_markup: new Keyboard().text("Начнем!")
             })
