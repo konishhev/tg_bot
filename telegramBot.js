@@ -1,5 +1,6 @@
 const {Bot, Keyboard} = require('grammy');
 const {GoogleSpreadsheet} = require('google-spreadsheet');
+const {Data} = require('data.js');
 
 require('dotenv').config();
 
@@ -8,7 +9,7 @@ const doc = new GoogleSpreadsheet(process.env.GOOGLE_SERVICE_TABLE_ID,
     {apiKey: process.env.GOOGLE_SERVICE_TABLE_KEY});
 
 const dictionary = [];
-let steps = [false, false];
+//let steps = [false, false];
 
 async function loadTable() {
     await doc.loadInfo();
@@ -25,36 +26,13 @@ loadTable().then(res => {
     console.log(dictionary);
 });
 
-bot.command('start', async msg => {
+bot.command('start', async ctx => {
     const response = dictionary[0];
-    if (response.key == 'start') await msg.reply(response.response);
+    if (response.key === 'start') {
+        await ctx.reply(response.response);
+        console.log(ctx.chat);
+    }
 });
-
-bot.on("message", async msg => {
-    /*
-    for (let i = 1; i < steps.length + 1; i++) {
-        if (steps[i - 1] === false) {
-            steps[i - 1] = true;
-            await msg.reply(dictionary[i].response);
-            break;
-        }
-    }
-     */
-
-    if (steps[0] === false) {
-        steps[0] = true;
-        await msg.reply(dictionary[1].response);
-    }
-    else if (steps[1] === false) {
-        if (msg.message.text.length === 11 & msg.message.text.startsWith('89')) {
-            steps[1] = true;npm
-            await msg.reply(dictionary[2].response, {
-                reply_markup: new Keyboard().text("Начнем!")
-            })
-        }
-        else await msg.reply("Неверный формат телефона, попробуй еще");
-    }
-})
 
 bot.on("message")
 
